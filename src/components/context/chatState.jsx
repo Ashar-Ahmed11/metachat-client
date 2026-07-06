@@ -17,7 +17,7 @@ const ChatState = (props) => {
 // https://fine-pink-puffer-boot.cyclic.app/
 
   const fetchUser = async () => {
-    const url = 'http://localhost:4000/api/v1/auth/getuser'
+    const url = 'https://metachat-pi.vercel.app/api/v1/auth/getuser'
     const token = localStorage.getItem('authToken')
     const response = await fetch(url, {
       method: "GET", // *GET, POST, PUT, DELETE, etc.
@@ -39,7 +39,7 @@ const ChatState = (props) => {
 
   const login = async (data) => {
     setprogress(25)
-    const url = 'http://localhost:4000/api/v1/auth/login'
+    const url = 'https://metachat-pi.vercel.app/api/v1/auth/login'
     const response = await fetch(url, {
       method: "POST", // *GET, POST, PUT, DELETE, etc.
       mode: "cors", // no-cors, *cors, same-origin
@@ -72,7 +72,7 @@ const ChatState = (props) => {
     setprogress(25)
     const authToken = localStorage.getItem('authToken')
     console.log(authToken)
-    const url = 'http://localhost:4000/api/v1/room/getallroom'
+    const url = 'https://metachat-pi.vercel.app/api/v1/room/getallroom'
     const response = await fetch(url, {
       method: "GET", // *GET, POST, PUT, DELETE, etc.
       mode: "cors", // no-cors, *cors, same-origin
@@ -101,7 +101,7 @@ const [messagesCurrentLength, setmessagesCurrentLength] = useState(null)
     setprogress(25)
     const authToken = localStorage.getItem('authToken')
 
-    const url = `http://localhost:4000/api/v1/message/getallmessages/${roomId}`
+    const url = `https://metachat-pi.vercel.app/api/v1/message/getallmessages/${roomId}`
     const response = await fetch(url, {
       method: "GET", // *GET, POST, PUT, DELETE, etc.
       mode: "cors", // no-cors, *cors, same-origin
@@ -143,7 +143,7 @@ const [messagesCurrentLength, setmessagesCurrentLength] = useState(null)
     setprogress(25)
     const authToken = localStorage.getItem('authToken')
     setSendingLoader(true)
-    const url = `http://localhost:4000/api/v1/message/createmessage/${recieverId}/${roomId}`
+    const url = `https://metachat-pi.vercel.app/api/v1/message/createmessage/${recieverId}/${roomId}`
     const response = await fetch(url, {
       method: "POST", // *GET, POST, PUT, DELETE, etc.
       mode: "cors", // no-cors, *cors, same-origin
@@ -179,7 +179,7 @@ const [messagesCurrentLength, setmessagesCurrentLength] = useState(null)
     setprogress(25)
     const authToken = localStorage.getItem('authToken')
 
-    const url = `http://localhost:4000/api/v1/room/getallusers`
+    const url = `https://metachat-pi.vercel.app/api/v1/room/getallusers`
     const response = await fetch(url, {
       method: "GET", // *GET, POST, PUT, DELETE, etc.
       mode: "cors", // no-cors, *cors, same-origin
@@ -201,7 +201,7 @@ const [messagesCurrentLength, setmessagesCurrentLength] = useState(null)
     setprogress(25)
     const authToken = localStorage.getItem('authToken')
 
-    const url = `http://localhost:4000/api/v1/room/createroom/${userId}`
+    const url = `https://metachat-pi.vercel.app/api/v1/room/createroom/${userId}`
     const response = await fetch(url, {
       method: "POST", // *GET, POST, PUT, DELETE, etc.
       mode: "cors", // no-cors, *cors, same-origin
@@ -224,7 +224,7 @@ const [messagesCurrentLength, setmessagesCurrentLength] = useState(null)
   const deleteRoom = async (roomId) => {
     const authToken = localStorage.getItem('authToken')
     setprogress(25)
-    const url = `http://localhost:4000/api/v1/room/deleteroom/${roomId}`
+    const url = `https://metachat-pi.vercel.app/api/v1/room/deleteroom/${roomId}`
     const response = await fetch(url, {
       method: "DELETE", // *GET, POST, PUT, DELETE, etc.
       mode: "cors", // no-cors, *cors, same-origin
@@ -252,7 +252,7 @@ const [messagesCurrentLength, setmessagesCurrentLength] = useState(null)
   const openDeleteModal = useRef(null)
   const signup = async (credentials) => {
     setprogress(25)
-    const url = `http://localhost:4000/api/v1/auth/signup`
+    const url = `https://metachat-pi.vercel.app/api/v1/auth/signup`
     const response = await fetch(url, {
       method: "POST", // *GET, POST, PUT, DELETE, etc.
       mode: "cors", // no-cors, *cors, same-origin
@@ -280,7 +280,7 @@ const [messagesCurrentLength, setmessagesCurrentLength] = useState(null)
 
   const deleteMessage = async (messageId) => {
     const authToken = localStorage.getItem('authToken')
-    const url = `http://localhost:4000/api/v1/message/deletemessage/${messageId}`
+    const url = `https://metachat-pi.vercel.app/api/v1/message/deletemessage/${messageId}`
     const response = await fetch(url, {
       method: "DELETE", // *GET, POST, PUT, DELETE, etc.
       mode: "cors", // no-cors, *cors, same-origin
@@ -298,7 +298,7 @@ const [messagesCurrentLength, setmessagesCurrentLength] = useState(null)
   }
   const getSingleMessage = async (messageId) => {
     const authToken = localStorage.getItem('authToken')
-    const url = `http://localhost:4000/api/v1/message/singlemessage/${messageId}`
+    const url = `https://metachat-pi.vercel.app/api/v1/message/singlemessage/${messageId}`
     const response = await fetch(url, {
       method: "GET", // *GET, POST, PUT, DELETE, etc.
       mode: "cors", // no-cors, *cors, same-origin
@@ -331,7 +331,7 @@ const [messagesCurrentLength, setmessagesCurrentLength] = useState(null)
 
   const editMessage = async (content) => {
     const authToken = localStorage.getItem('authToken')
-    const url = `http://localhost:4000/api/v1/message/editmessage/${messageId}`
+    const url = `https://metachat-pi.vercel.app/api/v1/message/editmessage/${messageId}`
     const response = await fetch(url, {
       method: "PUT", // *GET, POST, PUT, DELETE, etc.
       mode: "cors", // no-cors, *cors, same-origin
@@ -362,7 +362,7 @@ const [messagesCurrentLength, setmessagesCurrentLength] = useState(null)
     // const authToken = localStorage.getItem('authToken')
     // console.log("this is the authtoken",authToken);
     
-    // const url = `http://localhost:4000/api/v1/auth/notificationcontroller/${tokenId}`
+    // const url = `https://metachat-pi.vercel.app/api/v1/auth/notificationcontroller/${tokenId}`
     // const response = await fetch(url, {
     //   method: "PUT", // *GET, POST, PUT, DELETE, etc.
     //   mode: "cors", // no-cors, *cors, same-origin
