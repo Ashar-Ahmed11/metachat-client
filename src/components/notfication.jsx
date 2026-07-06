@@ -3,27 +3,27 @@ import { getToken } from "../firebaseInit.js";
 import ChatContext from "./context/chatcontext.jsx";
 
 const Notifications = (props) => {
-  const context = useContext(ChatContext)
-  const {notificationController} = context
-  const [isTokenFound, setTokenFound] = useState(false);
+  // const context = useContext(ChatContext)
+  // const {notificationController} = context
+  // const [isTokenFound, setTokenFound] = useState(false);
 
-  console.log("Token found", isTokenFound);
+  // console.log("Token found", isTokenFound);
 
-  // To load once
-  useEffect(() => {
-    let data;
+  // // To load once
+  // useEffect(() => {
+  //   let data;
 
-    async function tokenFunc() {
-      data = await getToken(setTokenFound);
-      if (data) {
-        console.log("Token is", data);
-        notificationController(data)
-      }
-      return data;
-    }
+  //   async function tokenFunc() {
+  //     data = await getToken(setTokenFound);
+  //     if (data) {
+  //       console.log("Token is", data);
+  //       notificationController(data)
+  //     }
+  //     return data;
+  //   }
 
-    tokenFunc();
-  }, [setTokenFound]);
+  //   tokenFunc();
+  // }, [setTokenFound]);
 
   return <></>;
 };

@@ -7,16 +7,17 @@ import { getToken } from "../../firebaseInit";
 import { useParams } from 'react-router-dom'
 const ChatState = (props) => {
   const bottomRef = useRef(null);
+  const [chatcontent, setContent] = useState("")
 
   const [counter, setcounter] = useState(22)
   const history = useNavigate()
   const [error, seterror] = useState(null)
   const [userData, setuserData] = useState(null)
   const [progress, setprogress] = useState(0)
-
+// https://fine-pink-puffer-boot.cyclic.app/
 
   const fetchUser = async () => {
-    const url = 'https://fine-pink-puffer-boot.cyclic.app/api/v1/auth/getuser'
+    const url = 'http://localhost:4000/api/v1/auth/getuser'
     const token = localStorage.getItem('authToken')
     const response = await fetch(url, {
       method: "GET", // *GET, POST, PUT, DELETE, etc.
@@ -38,7 +39,7 @@ const ChatState = (props) => {
 
   const login = async (data) => {
     setprogress(25)
-    const url = 'https://fine-pink-puffer-boot.cyclic.app/api/v1/auth/login'
+    const url = 'http://localhost:4000/api/v1/auth/login'
     const response = await fetch(url, {
       method: "POST", // *GET, POST, PUT, DELETE, etc.
       mode: "cors", // no-cors, *cors, same-origin
@@ -71,7 +72,7 @@ const ChatState = (props) => {
     setprogress(25)
     const authToken = localStorage.getItem('authToken')
     console.log(authToken)
-    const url = 'https://fine-pink-puffer-boot.cyclic.app/api/v1/room/getallroom'
+    const url = 'http://localhost:4000/api/v1/room/getallroom'
     const response = await fetch(url, {
       method: "GET", // *GET, POST, PUT, DELETE, etc.
       mode: "cors", // no-cors, *cors, same-origin
@@ -137,10 +138,12 @@ const [messagesCurrentLength, setmessagesCurrentLength] = useState(null)
 
   const [sendingLoader, setSendingLoader] = useState(false)
   const sendMessage = async (recieverId, roomId, content) => {
+    console.log(content);
+    
     setprogress(25)
     const authToken = localStorage.getItem('authToken')
     setSendingLoader(true)
-    const url = `https://fine-pink-puffer-boot.cyclic.app/api/v1/message/createmessage/${recieverId}/${roomId}`
+    const url = `http://localhost:4000/api/v1/message/createmessage/${recieverId}/${roomId}`
     const response = await fetch(url, {
       method: "POST", // *GET, POST, PUT, DELETE, etc.
       mode: "cors", // no-cors, *cors, same-origin
@@ -158,6 +161,7 @@ const [messagesCurrentLength, setmessagesCurrentLength] = useState(null)
     console.log(token)
     setMessages([...messages, token])
     setmessagesCurrentLength(messages.length)
+    setContent("")
 
     setSendingLoader(false)
     setprogress(100)
@@ -175,7 +179,7 @@ const [messagesCurrentLength, setmessagesCurrentLength] = useState(null)
     setprogress(25)
     const authToken = localStorage.getItem('authToken')
 
-    const url = `https://fine-pink-puffer-boot.cyclic.app/api/v1/room/getallusers`
+    const url = `http://localhost:4000/api/v1/room/getallusers`
     const response = await fetch(url, {
       method: "GET", // *GET, POST, PUT, DELETE, etc.
       mode: "cors", // no-cors, *cors, same-origin
@@ -197,7 +201,7 @@ const [messagesCurrentLength, setmessagesCurrentLength] = useState(null)
     setprogress(25)
     const authToken = localStorage.getItem('authToken')
 
-    const url = `https://fine-pink-puffer-boot.cyclic.app/api/v1/room/createroom/${userId}`
+    const url = `http://localhost:4000/api/v1/room/createroom/${userId}`
     const response = await fetch(url, {
       method: "POST", // *GET, POST, PUT, DELETE, etc.
       mode: "cors", // no-cors, *cors, same-origin
@@ -220,7 +224,7 @@ const [messagesCurrentLength, setmessagesCurrentLength] = useState(null)
   const deleteRoom = async (roomId) => {
     const authToken = localStorage.getItem('authToken')
     setprogress(25)
-    const url = `https://fine-pink-puffer-boot.cyclic.app/api/v1/room/deleteroom/${roomId}`
+    const url = `http://localhost:4000/api/v1/room/deleteroom/${roomId}`
     const response = await fetch(url, {
       method: "DELETE", // *GET, POST, PUT, DELETE, etc.
       mode: "cors", // no-cors, *cors, same-origin
@@ -248,7 +252,7 @@ const [messagesCurrentLength, setmessagesCurrentLength] = useState(null)
   const openDeleteModal = useRef(null)
   const signup = async (credentials) => {
     setprogress(25)
-    const url = `https://fine-pink-puffer-boot.cyclic.app/api/v1/auth/signup`
+    const url = `http://localhost:4000/api/v1/auth/signup`
     const response = await fetch(url, {
       method: "POST", // *GET, POST, PUT, DELETE, etc.
       mode: "cors", // no-cors, *cors, same-origin
@@ -276,7 +280,7 @@ const [messagesCurrentLength, setmessagesCurrentLength] = useState(null)
 
   const deleteMessage = async (messageId) => {
     const authToken = localStorage.getItem('authToken')
-    const url = `https://fine-pink-puffer-boot.cyclic.app/api/v1/message/deletemessage/${messageId}`
+    const url = `http://localhost:4000/api/v1/message/deletemessage/${messageId}`
     const response = await fetch(url, {
       method: "DELETE", // *GET, POST, PUT, DELETE, etc.
       mode: "cors", // no-cors, *cors, same-origin
@@ -294,7 +298,7 @@ const [messagesCurrentLength, setmessagesCurrentLength] = useState(null)
   }
   const getSingleMessage = async (messageId) => {
     const authToken = localStorage.getItem('authToken')
-    const url = `https://fine-pink-puffer-boot.cyclic.app/api/v1/message/singlemessage/${messageId}`
+    const url = `http://localhost:4000/api/v1/message/singlemessage/${messageId}`
     const response = await fetch(url, {
       method: "GET", // *GET, POST, PUT, DELETE, etc.
       mode: "cors", // no-cors, *cors, same-origin
@@ -327,7 +331,7 @@ const [messagesCurrentLength, setmessagesCurrentLength] = useState(null)
 
   const editMessage = async (content) => {
     const authToken = localStorage.getItem('authToken')
-    const url = `https://fine-pink-puffer-boot.cyclic.app/api/v1/message/editmessage/${messageId}`
+    const url = `http://localhost:4000/api/v1/message/editmessage/${messageId}`
     const response = await fetch(url, {
       method: "PUT", // *GET, POST, PUT, DELETE, etc.
       mode: "cors", // no-cors, *cors, same-origin
@@ -354,24 +358,26 @@ const [messagesCurrentLength, setmessagesCurrentLength] = useState(null)
   }
 
   const notificationController=async(tokenId)=>{
-    setprogress(25)
-    const authToken = localStorage.getItem('authToken')
-    const url = `https://fine-pink-puffer-boot.cyclic.app/api/v1/auth/notificationcontroller/${tokenId}`
-    const response = await fetch(url, {
-      method: "PUT", // *GET, POST, PUT, DELETE, etc.
-      mode: "cors", // no-cors, *cors, same-origin
-      headers: {
-        "Content-Type": "application/json",
-        "auth-token":authToken
-        // 'Content-Type': 'application/x-www-form-urlencoded',
-      },
-      body:JSON.stringify({content:content}),
-      redirect: "follow", // manual, *follow, error
-      referrerPolicy: "no-referrer"
-    });
-    const token = await response.json();
-    console.log('THE API RAN',token)
-    setprogress(100)
+    // setprogress(25)
+    // const authToken = localStorage.getItem('authToken')
+    // console.log("this is the authtoken",authToken);
+    
+    // const url = `http://localhost:4000/api/v1/auth/notificationcontroller/${tokenId}`
+    // const response = await fetch(url, {
+    //   method: "PUT", // *GET, POST, PUT, DELETE, etc.
+    //   mode: "cors", // no-cors, *cors, same-origin
+    //   headers: {
+    //     "Content-Type": "application/json",
+    //     "auth-token":authToken
+    //     // 'Content-Type': 'application/x-www-form-urlencoded',
+    //   },
+    //   body:JSON.stringify({content:content}),
+    //   redirect: "follow", // manual, *follow, error
+    //   referrerPolicy: "no-referrer"
+    // });
+    // const token = await response.json();
+    // console.log('THE API RAN',token)
+    // setprogress(100)
   }
 
   const openEditModal = useRef(null)
@@ -380,7 +386,7 @@ const [messagesCurrentLength, setmessagesCurrentLength] = useState(null)
   const [navHider, setnavHider] = useState(false)
 
   return (
-    <ChatContext.Provider value={{ navHider,setnavHider,setMessages,bottomRef,getSingleMessage,notificationController,content,setcontent,setmessageId,editMessage,openEditModal,deleteMessage,signup, setprogress, progress, deleteRoom, openDeleteModal, createRoom, users, getAllUsers, modal, sendingLoader, sendMessage, messages, setMessages, getAllMessages, counter, setcounter, login, error, seterror, userData, fetchUser, room, getAllRooms }}>
+    <ChatContext.Provider value={{ chatcontent, setContent,navHider,setnavHider,setMessages,bottomRef,getSingleMessage,notificationController,content,setcontent,setmessageId,editMessage,openEditModal,deleteMessage,signup, setprogress, progress, deleteRoom, openDeleteModal, createRoom, users, getAllUsers, modal, sendingLoader, sendMessage, messages, setMessages, getAllMessages, counter, setcounter, login, error, seterror, userData, fetchUser, room, getAllRooms }}>
       {props.children}
     </ChatContext.Provider>
   )

@@ -14,7 +14,7 @@ const Home = () => {
   const { chatId } = params
   console.log(chatId)
   const context = useContext(ChatContext)
-  const { setnavHider,setMessages, bottomRef, getSingleMessage, setcontent, setmessageId, openEditModal, deleteMessage, setprogress, progress, openDeleteModal, counter, setcounter, getAllRooms, room, userData, modal, getAllUsers, messages, getAllMessages, sendMessage, sendingLoader } = context
+  const {chatcontent:content, setContent, setnavHider,setMessages, bottomRef, getSingleMessage, setcontent, setmessageId, openEditModal, deleteMessage, setprogress, progress, openDeleteModal, counter, setcounter, getAllRooms, room, userData, modal, getAllUsers, messages, getAllMessages, sendMessage, sendingLoader } = context
 
   useEffect(() => {
     if(chatId&&window.innerWidth<768){
@@ -32,7 +32,6 @@ const Home = () => {
   });
 
   const [chatRoom, setchatRoom] = useState(null)
-  const [content, setContent] = useState("")
 
 
   useEffect(() => {
@@ -91,20 +90,22 @@ const Home = () => {
   useEffect(() => {
     const listenerParams = {
       message: (messageEvent) => {
+        console.log("This is the message event",messageEvent);
+        
         if (messageEvent.message.senderId !== userData._id) {
-          if (messageEvent.publisher == 'creator') {
+          // if (messageEvent.publisher == 'creator') {
             getAllMessages(chatId)
             console.log('itran')
-          }
-          else if (messageEvent.publisher == 'editor') {
-            getSingleMessage(messageEvent.message._id)
-            // console.log(messageEvent.message._id)
-          }
-          else if (messageEvent.publisher == 'remover') {
-            const filteredMessages = messages.filter((e) => { return e._id !== messageEvent.message._id })
-            setMessages(filteredMessages)
-            // console.log(messages)
-          }
+          // }
+          // else if (messageEvent.publisher == 'editor') {
+          //   getSingleMessage(messageEvent.message._id)
+          //   // console.log(messageEvent.message._id)
+          // }
+          // else if (messageEvent.publisher == 'remover') {
+          //   const filteredMessages = messages.filter((e) => { return e._id !== messageEvent.message._id })
+          //   setMessages(filteredMessages)
+          //   // console.log(messages)
+          // }
         }
       }
     }
@@ -118,23 +119,23 @@ const Home = () => {
   }, [pubnub, chatId]);
 
 
-  useEffect(() => {
-    const listenerParams = {
-      message: (messageEvent) => {
-        if (messageEvent.message.users.find((e) => { return e._id == userData._id })) {
-          getAllRooms()
-          console.log('roomer')
-        }
-      }
-    }
-    pubnub.addListener(listenerParams);
-    pubnub.subscribe({ channels: ['homepage'] });
-    return () => {
-      pubnub.unsubscribe({ channels: ['homepage'] })
-      pubnub.removeListener(listenerParams)
-      console.log('unmounted')
-    }
-  }, [pubnub]);
+  // useEffect(() => {
+  //   const listenerParams = {
+  //     message: (messageEvent) => {
+  //       if (messageEvent.message.users.find((e) => { return e._id == userData._id })) {
+  //         getAllRooms()
+  //         console.log('roomer')
+  //       }
+  //     }
+  //   }
+  //   pubnub.addListener(listenerParams);
+  //   pubnub.subscribe({ channels: ['homepage'] });
+  //   return () => {
+  //     pubnub.unsubscribe({ channels: ['homepage'] })
+  //     pubnub.removeListener(listenerParams)
+  //     console.log('unmounted')
+  //   }
+  // }, [pubnub]);
 
   // useEffect(() => {
   //   const listenerParams = {
